@@ -24,14 +24,36 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 db = SQLAlchemy(app) 
 
-# Patient Model for SQLAlchemy
-class Patients(db.Model):
+# Models for SQLAlchemy
+
+vaccines = db.Table('vaccines',
+    db.Column('vaccine_id', db.Integer, db.ForeignKey('vaccine.id'), primary_key=True),
+    db.Column('patient_id', db.Integer, db.ForeignKey('patient.id'), primary_key=True)
+)
+
+class Patient(db.Model):
     id = db.Column(db.Integer, primary_key = True, nullable = False)
-    email = db.Column(db.String(200), nullable = False, unique = True)
+    phone = db.Column(db.String(20), nullable = False, unique = True)
+    pw = db.Column(db.Text(), nullable = True)
+    f_name = db.Column(db.String(50), nullable = False)
+    l_name = db.Column(db.String(50), nullable = False)
+    dob = db.Column(db.String(50), nullable = False)
+    vaccines = db.relationship('Vaccine', secondary=vaccines, lazy='subquery',
+        backref=db.backref('patients', lazy=True))
+
+class Technician(db.Model):
+    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    username = db.Column(db.String(50), nullable = False, unique = True)
     pw = db.Column(db.Text(), nullable = False)
     f_name = db.Column(db.String(50), nullable = False)
     l_name = db.Column(db.String(50), nullable = False)
-    dob = db.Column(db.String(50), nullable = False, unique = True)
+    company = db.Column(db.String(50), nullable = False)
+
+class Vaccine(db.Model):
+    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    name = db.Column(db.String(200), nullable = False, unique = True)
+    number_of_doses = db.Column(db.Integer, nullable = False)
+
 
 @app.route("/")
 def index():
