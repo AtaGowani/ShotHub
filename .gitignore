@@ -1,0 +1,8 @@
+# Mac Files
+.DS_Store
+
+# Environment
+.venv
+.env
+env
+venv
