@@ -1,4 +1,5 @@
 Flask
-# psycopg2
-# flask-sqlalchemy
+python-dotenv
 gunicorn
+Flask-SQLAlchemy
+mysqlclient
