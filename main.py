@@ -24,11 +24,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 db = SQLAlchemy(app) 
 
-# Models for SQLAlchemy
+# START OF MODELS
 
 vaccines = db.Table('vaccines',
     db.Column('vaccine_id', db.Integer, db.ForeignKey('vaccine.id'), primary_key=True),
-    db.Column('patient_id', db.Integer, db.ForeignKey('patient.id'), primary_key=True)
+    db.Column('patient_id', db.Integer, db.ForeignKey('patient.id'), primary_key=True),
+    db.Column('injection_site', db.String(10), nullable = False)
 )
 
 class Patient(db.Model):
@@ -54,11 +55,27 @@ class Vaccine(db.Model):
     name = db.Column(db.String(200), nullable = False, unique = True)
     number_of_doses = db.Column(db.Integer, nullable = False)
 
+# END OF MODELS
 
 @app.route("/")
 def index():
     return render_template("index.jinja.html")
 
+@app.route("/signin")
+def signin():
+    return render_template("index.jinja.html")
+
+@app.route("/technician-signin")
+def tech_signin():
+    return render_template("index.jinja.html")
+
+@app.route("/register?")
+def register():
+    return render_template("index.jinja.html")
+
+@app.route("/home")
+def home():
+    return render_template("index.jinja.html")
 
 @app.errorhandler(401)
 def FUN_401(error):
