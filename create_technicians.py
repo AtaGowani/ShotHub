@@ -1,4 +1,5 @@
-from main import db, Technician
+import hashlib
+from main import db, Technician, SALT, create_tech
 from random import *
 import names
 
@@ -18,27 +19,17 @@ def create_password():
 
 # HELPER FUNCTIONS END #
 
-for i in range(100):
+for i in range(1):
   f_name = names.get_first_name()
   l_name = names.get_last_name()
 
   try:
-    # creating Users object
-    user = Technician (
-      f_name = f_name,
-      l_name = l_name,
-      username = create_username(f_name, l_name),
-      pw = create_password(),
-      company = companies[randint(0, len(companies)-1)]
-    )
+    username = create_username(f_name, l_name)
+    pw = create_password()
+    company = companies[randint(0, len(companies)-1)]
 
-    technicians.append(user)
-
-    # adding the fields to users table
-    # db.session.add(user)
-    # db.session.commit()
-
-
+    create_tech(f_name, l_name, username, pw, company)
+    technicians.append([username, pw])
   except:
     print("Creation of " + f_name + " " + l_name + " failed.")
 
@@ -49,6 +40,6 @@ print(count + " new technicians created!")
 out = open("./script-outputs/technicians.txt", "a")
 
 for tech in technicians:
-  out.write(tech.username + " " + tech.pw + "\n")
+  out.write(tech[0] + " " + tech[1] + "\n")
 
 print("New technician data added to output file!")
