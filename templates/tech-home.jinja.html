@@ -1,13 +1,17 @@
-{% extends "layout.jinja.html" %}
+{% extends "dashboard-layout.jinja.html" %}
 
-{% block title %}Tech Home | ShotHub{% endblock %}
+{% block menu_items %}
+<li class="sidebar-item active">
+  <a href="#" class='sidebar-link'>
+    <i class="bi bi-stack"></i>
+    <span>Patient Management</span>
+  </a>
+</li>
 
-{% block body %}
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      Hello! You are sign in as {{ data.id }}
-    </div>
-  </div>
-</div>
+<li class="sidebar-item">
+  <a href="/insights" class='sidebar-link'>
+    <i class="bi bi-grid-fill"></i>
+    <span>Clinical Insights</span>
+  </a>
+</li>
 {% endblock %}

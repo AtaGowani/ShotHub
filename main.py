@@ -85,14 +85,14 @@ def create_tech(f_name, l_name, username, pw, company):
     db.session.commit()
     db.session.close()
 
-def verify(username, pw):
+def verify_tech(username, pw):
     user = Technician.query.filter(Technician.username == username).first()
 
     # Handle non existant user
     if not user: 
         return False
 
-    user = Technician.query.filter(Technician.username == username).first().__dict__
+    user = user.__dict__
 
     dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
     hash = dk.hex()
@@ -100,11 +100,39 @@ def verify(username, pw):
         return user["id"]
     return False
 
+def get_tech_data(user_id):
+    user = Technician.query.filter(Technician.id == user_id).first()
+
+    # Handle non existant user
+    if not user: 
+        return False
+
+    user = user.__dict__
+
+    return user
+
 # END OF HELPER FUNCTIONS #
 
 @app.route("/")
 def index():
     return render_template("index.jinja.html")
+
+@app.route("/insights")
+def insights():
+    user_id = session.get("id", None)
+    user_type = session.get("user", None)
+
+    if user_id:
+        user_data = {}
+        for key, data in session.items():
+            user_data[key] = data
+
+        if user_type == "tech":
+            return render_template("insights.jinja.html", data=user_data)
+        else:
+            return redirect(url_for("home"))
+    
+    return redirect(url_for("index"))
 
 @app.route("/signin")
 def signin():
@@ -117,11 +145,16 @@ def tech_signin():
         pw = request.form.get("pw")
 
         if username and pw:
-            id = verify(username, pw)
+            id = verify_tech(username, pw)
 
             if id:
+                user_data = get_tech_data(id)
                 session["user"] = "tech"
-                session["id"] = id
+                
+                for key, value in user_data.items():
+                    if key != "_sa_instance_state":
+                        session[key] = value
+
                 return redirect(url_for("home"))
 
         return render_template("signin.jinja.html", user="tech", invalid=True)
@@ -138,8 +171,12 @@ def home():
     user_type = session.get("user", None)
 
     if user_id:
+        user_data = {}
+        for key, data in session.items():
+            user_data[key] = data
+
         if user_type == "tech":
-            return render_template("tech-home.jinja.html", data={"id": user_id})
+            return render_template("tech-home.jinja.html", data=user_data)
         else:
             return render_template("patient-home.jinja.html", data={})
     

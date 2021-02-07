@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ShotHub</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="static/assets/vendors/iconly/bold.css">
+
+  <link rel="stylesheet" href="static/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="static/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="static/assets/css/app.css">
+  <link rel="stylesheet" href="static/assets/css/dashboard.css">
+  <link rel="shortcut icon" href="static/assets/images/favicon.svg" type="image/x-icon">
+</head>
+
+<body>
+  <div id="app">
+    <div id="sidebar" class="active">
+      <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+          <div class="d-flex justify-content-between">
+            <div class="logo">
+              <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+            </div>
+            <div class="toggler">
+              <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+            </div>
+          </div>
+        <div class="mt-4 text-center">
+          <p class="lead">
+            <strong>Hello, {{ data.f_name }}!</strong> <br>
+            Welcome to your technician ShotHub @ {{ data.company }}
+          </p>
+        </div>
+        </div>
+        <div class="sidebar-menu">
+          <ul class="menu">
+            <li class="sidebar-title">Menu</li>
+            {% block menu_items %}
+            {% endblock %}
+          </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+      </div>
+    </div>
+    <div id="main" class="main">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <script src="static/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script src="static/assets/js/bootstrap.bundle.min.js"></script>
+
+  <script src="static/assets/vendors/apexcharts/apexcharts.js"></script>
+  <script src="static/assets/js/pages/dashboard.js"></script>
+
+  <script src="static/assets/js/main.js"></script>
+</body>
+
+</html>
