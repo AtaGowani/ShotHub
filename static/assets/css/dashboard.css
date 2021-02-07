@@ -5,3 +5,8 @@ body {
 .sidebar-wrapper .sidebar-header {
   padding-bottom: 0;
 }
+
+.sidebar-wrapper .sidebar-header img {
+  height: auto;
+  width: 200px;
+}
