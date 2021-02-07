@@ -35,7 +35,7 @@ vaccines = db.Table('vaccines',
         'vaccine.id'), primary_key=True),
     db.Column('patient_id', db.Integer, db.ForeignKey(
         'patient.id'), primary_key=True),
-    db.Column('injection_site', db.String(10), nullable=False)
+    db.Column('injection_site', db.String(10), nullable=False, default="IM")
 )
 
 
