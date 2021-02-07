@@ -91,7 +91,7 @@ def verify(username, pw):
     dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
     hash = dk.hex()
     if (user["pw"] == hash):
-        return True
+        return user["id"]
     return False
 
 # END OF HELPER FUNCTIONS #
@@ -128,7 +128,16 @@ def register():
 
 @app.route("/home")
 def home():
-    return render_template("index.jinja.html")
+    user_id = session.get("id", None)
+    user_type = session.get("user", None)
+
+    if user_id:
+        if user_type == "tech":
+            return render_template("tech-home.jinja.html", data={"id": user_id})
+        else:
+            return render_template("patient-home.jinja.html", data={})
+    
+    return redirect(url_for("index"))
 
 @app.errorhandler(401)
 def FUN_401(error):
