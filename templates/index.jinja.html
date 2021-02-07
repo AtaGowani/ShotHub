@@ -1,12 +1,37 @@
 {% extends "layout.jinja.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/main.css">
+<link rel="stylesheet" href="static/css/util.css">
+{% endblock %}
+
 {% block title %}ShotHub{% endblock %}
 
 {% block body %}
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        Welcome to ShotHub
-      </div>
-    </div>
+<div>
+  <div class="ShotHubLogo">
+    <img src="../static/assets/images/logo/Logo 1.png" alt="ShotHubLogo">
   </div>
+  <div class="Welcome">
+    <h1>
+      Welcome to ShotHub
+    </h1>
+    <p class="statement">
+      One stop record for your shots
+    </p> <br>
+    <br>
+    <h2>
+      <div class="issue">
+        The problem
+      </div>
+    </h2>
+    <p class="problem">
+      Are you able to find your vaccination record since childhood? Do you remember the last time
+      you got your tetanus shot, and when are you due for a booster? Didn’t think so, neither did we. <br>
+      <br>
+      ShotHub will compile data for patients no matter where the vaccination was administered, and we will create an
+      electronic immunization card, that way patients records will be stored in one place.
+    </p>
+  </div>
+</div>
 {% endblock %}
