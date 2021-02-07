@@ -35,10 +35,8 @@
             </div>
           </div>
         <div class="mt-4 text-center">
-          <p class="lead">
-            <strong>Hello, {{ data.f_name }}!</strong> <br>
-            Welcome to your technician ShotHub @ {{ data.company }}
-          </p>
+          {% block greeting %}
+          {% endblock %}
         </div>
         </div>
         <div class="sidebar-menu">

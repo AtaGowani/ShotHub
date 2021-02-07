@@ -35,3 +35,10 @@ pip install -r requirements.txt
 
 * Step 5: Start the server
 `python main.py`
+
+### DB Population Scripts
+* `create_patients.py`
+* `create_tables.py`
+* `create_technicians.py`
+* `create_vac_records.py`
+* `create_vaccines.py`

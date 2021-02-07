@@ -35,7 +35,7 @@ vaccines = db.Table('vaccines',
         'vaccine.id'), primary_key=True),
     db.Column('patient_id', db.Integer, db.ForeignKey(
         'patient.id'), primary_key=True),
-    db.Column('injection_site', db.String(10), nullable=False)
+    db.Column('injection_site', db.String(10), nullable=False, default="IM")
 )
 
 
@@ -118,8 +118,34 @@ def verify_tech(username, pw):
         return user["id"]
     return False
 
+def verify_patient(phone, pw):
+    user = Patient.query.filter(Patient.phone == phone).first()
+
+    # Handle non existant user
+    if not user:
+        return False
+
+    user = user.__dict__
+
+    dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
+    hash = dk.hex()
+    if (user["pw"] == hash):
+        return user["id"]
+    return False
+
 def get_tech_data(user_id):
     user = Technician.query.filter(Technician.id == user_id).first()
+
+    # Handle non existant user
+    if not user: 
+        return False
+
+    user = user.__dict__
+
+    return user
+
+def get_patient_data(user_id):
+    user = Patient.query.filter(Patient.id == user_id).first()
 
     # Handle non existant user
     if not user: 
@@ -134,6 +160,23 @@ def get_tech_data(user_id):
 @app.route("/")
 def index():
     return render_template("index.jinja.html")
+
+@app.route("/personal-info")
+def personal_info():
+    user_id = session.get("id", None)
+    user_type = session.get("user", None)
+
+    if user_id:
+        user_data = {}
+        for key, data in session.items():
+            user_data[key] = data
+
+        if user_type != "tech":
+            return render_template("patient-info.jinja.html", data=user_data)
+        else:
+            return redirect(url_for("home"))
+    
+    return redirect(url_for("index"))
 
 @app.route("/insights")
 def insights():
@@ -152,8 +195,32 @@ def insights():
     
     return redirect(url_for("index"))
 
-@app.route("/signin")
+@app.route("/signin", methods = ["POST", "GET"])
 def signin():
+    if request.method == 'POST':
+        phone = request.form.get("phone")
+        pw = request.form.get("pw")
+
+        if phone and pw:
+            id = verify_patient(phone, pw)
+
+            if id:
+                user_data = get_patient_data(id)
+                session["user"] = "patient"
+                
+                for key, value in user_data.items():
+                    if key != "_sa_instance_state":
+                        session[key] = value
+
+                return redirect(url_for("home"))
+
+        return render_template("signin.jinja.html", user="patient", invalid=True)
+    
+    user_id = session.get("id", None)
+
+    if user_id:
+        return redirect(url_for("home"))
+
     return render_template("signin.jinja.html", user="patient")
 
 @app.route("/tech-signin", methods = ["POST", "GET"])
@@ -177,9 +244,21 @@ def tech_signin():
 
         return render_template("signin.jinja.html", user="tech", invalid=True)
 
+    user_id = session.get("id", None)
+
+    print(user_id)
+
+    if user_id:
+        return redirect(url_for("home"))
+
     return render_template("signin.jinja.html", user="tech")
 
-@app.route("/register?")
+@app.route("/logout")
+def logout():
+    session.clear()
+    return(redirect(url_for("index")))
+
+@app.route("/register")
 def register():
     return render_template("index.jinja.html")
 
@@ -187,6 +266,8 @@ def register():
 def home():
     user_id = session.get("id", None)
     user_type = session.get("user", None)
+
+    print(user_id)
 
     if user_id:
         user_data = {}
@@ -196,7 +277,7 @@ def home():
         if user_type == "tech":
             return render_template("tech-home.jinja.html", data=user_data)
         else:
-            return render_template("patient-home.jinja.html", data={})
+            return render_template("patient-home.jinja.html", data=user_data)
     
     return redirect(url_for("index"))
 

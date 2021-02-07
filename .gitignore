@@ -8,3 +8,6 @@ env
 venv
 
 script-outputs
+
+# Editor Settings
+.vscode
