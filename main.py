@@ -86,6 +86,12 @@ def create_tech(f_name, l_name, username, pw, company):
     db.session.close()
 
 def verify(username, pw):
+    user = Technician.query.filter(Technician.username == username).first()
+
+    # Handle non existant user
+    if not user: 
+        return False
+
     user = Technician.query.filter(Technician.username == username).first().__dict__
 
     dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
