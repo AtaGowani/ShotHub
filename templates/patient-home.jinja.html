@@ -1,1 +1,24 @@
-{{ data }}
+{% extends "dashboard-layout.jinja.html" %}
+
+{% block greeting %}
+<p class="lead">
+  <strong>Hello, {{ data.f_name }}!</strong> <br>
+  Welcome to your ShotHub portal!
+</p>
+{% endblock %}
+
+{% block menu_items %}
+<li class="sidebar-item active">
+  <a href="#" class='sidebar-link'>
+    <i class="bi bi-stack"></i>
+    <span>Vaccine Record</span>
+  </a>
+</li>
+
+<li class="sidebar-item">
+  <a href="/personal-info" class='sidebar-link'>
+    <i class="bi bi-grid-fill"></i>
+    <span>Personal Info</span>
+  </a>
+</li>
+{% endblock %}

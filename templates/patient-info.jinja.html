@@ -1,0 +1,70 @@
+{% extends "dashboard-layout.jinja.html" %}
+
+{% block greeting %}
+<p class="lead">
+  <strong>Hello, {{ data.f_name }}!</strong> <br>
+  Welcome to your ShotHub portal!
+</p>
+{% endblock %}
+
+{% block menu_items %}
+<li class="sidebar-item">
+  <a href="/home" class='sidebar-link'>
+    <i class="bi bi-stack"></i>
+    <span>Vaccine Record</span>
+  </a>
+</li>
+
+<li class="sidebar-item active">
+  <a href="/personal-info" class='sidebar-link'>
+    <i class="bi bi-grid-fill"></i>
+    <span>Personal Info</span>
+  </a>
+</li>
+{% endblock %}
+
+{% block content %}
+<header class="mb-3">
+  <a href="#" class="burger-btn d-block d-xl-none">
+    <i class="bi bi-justify fs-3"></i>
+  </a>
+</header>
+
+<div class="page-heading">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last my-3">
+        <h3>Your Information</h3>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="basicInput">First Name</label>
+              <input type="text" class="form-control" id="basicInput" value={{ data.f_name }} disabled>
+            </div>
+
+            <div class="form-group">
+              <label for="helpInputTop">Phone Number</label>
+              <input type="text" class="form-control" id="helpInputTop" value={{ data.phone }} disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="disabledInput">Last Name</label>
+              <input type="text" class="form-control" id="disabledInput" value={{ data.l_name }} disabled>
+            </div>
+            <div class="form-group">
+              <label for="disabledInput">Date of Birth</label>
+              <input type="text" class="form-control" disabled value={{ data.dob }}>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,5 +1,12 @@
 {% extends "dashboard-layout.jinja.html" %}
 
+{% block greeting %}
+<p class="lead">
+  <strong>Hello, {{ data.f_name }}!</strong> <br>
+  Welcome to your technician ShotHub @ {{ data.company }}
+</p>
+{% endblock %}
+
 {% block menu_items %}
 <li class="sidebar-item">
   <a href="/home" class='sidebar-link'>
