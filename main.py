@@ -68,6 +68,24 @@ class Vaccine(db.Model):
 
 # START OF HELPER FUNCTIONS #
 
+def create_patient(f_name, l_name, phone, dob, pw=None):
+    if pw:
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
+    else:
+        dk = None
+
+    user = Patient (
+        f_name = f_name,
+        l_name = l_name,
+        phone = phone,
+        dob = dob,
+        pw = dk.hex() if dk else None
+    )
+
+    # adding the fields to users table
+    db.session.add(user)
+    db.session.commit()
+    db.session.close()
 
 def create_tech(f_name, l_name, username, pw, company):
     dk = hashlib.pbkdf2_hmac('sha256', bytes(pw, 'utf-8'), bytes(SALT, 'utf-8'), 100000)
