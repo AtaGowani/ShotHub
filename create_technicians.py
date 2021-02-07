@@ -3,7 +3,6 @@ from main import db, Technician, SALT, create_tech
 from random import *
 import names
 
-full_names = []
 companies = ["Walmart", "HEB", "Walgreens", "CVS", "Rite Aid"]
 technicians = []
 
@@ -19,7 +18,7 @@ def create_password():
 
 # HELPER FUNCTIONS END #
 
-for i in range(1):
+for i in range(100):
   f_name = names.get_first_name()
   l_name = names.get_last_name()
 
