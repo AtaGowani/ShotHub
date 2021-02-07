@@ -161,6 +161,23 @@ def get_patient_data(user_id):
 def index():
     return render_template("index.jinja.html")
 
+@app.route("/personal-info")
+def personal_info():
+    user_id = session.get("id", None)
+    user_type = session.get("user", None)
+
+    if user_id:
+        user_data = {}
+        for key, data in session.items():
+            user_data[key] = data
+
+        if user_type != "tech":
+            return render_template("patient-info.jinja.html", data=user_data)
+        else:
+            return redirect(url_for("home"))
+    
+    return redirect(url_for("index"))
+
 @app.route("/insights")
 def insights():
     user_id = session.get("id", None)
