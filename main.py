@@ -146,12 +146,23 @@ def get_tech_data(user_id):
 
 def get_patient_data(user_id):
     user = Patient.query.filter(Patient.id == user_id).first()
+    vaccines = []
 
     # Handle non existant user
     if not user: 
         return False
 
     user = user.__dict__
+
+    if user["vaccines"]:
+        for vac in user["vaccines"]:
+            vac_dict = vac.__dict__
+            vac_dict["_sa_instance_state"] = None
+            vaccines.append(vac_dict)
+    
+    user["vaccines"] = vaccines
+
+    print(user)
 
     return user
 

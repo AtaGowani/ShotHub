@@ -22,3 +22,37 @@
   </a>
 </li>
 {% endblock %}
+
+{% block content %}
+<div class="page-heading">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last my-4">
+        <h3>Vaccine Record</h3>
+      </div>
+    </div>
+  </div>
+  <section id="basic-dropdown">
+    <div class="row">
+      <div class="col-12">
+        {% for vac in data.vaccines %}
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <i class="bi bi-folder-check"></i>
+              <h5>{{ vac.name }}</h5>
+              <p class="lead">04/23/2006 |
+                {% if vac.number_of_doses == 1 %}
+                <i class="bi bi-check2-circle"></i>
+                {% endif %}
+                1 out of {{ vac.number_of_doses }} doses taken
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

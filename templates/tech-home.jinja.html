@@ -22,3 +22,52 @@
   </a>
 </li>
 {% endblock %}
+
+{% block content %}
+<div class="page-heading">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last my-3">
+        <h3>Add Patient Record</h3>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <form action="/add-record" method="post">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="basicInput">First Name</label>
+                <input type="text" name="f_name" class="form-control" id="basicInput" placeholder="Enter patient's first name">
+              </div>
+  
+              <div class="form-group">
+                <label for="basicInput">Phone</label>
+                <input type="text" name="phone" class="form-control" id="basicInput" placeholder="Enter patient's phone">
+              </div>
+  
+              <div class="form-group">
+                <label for="basicInput">Date of Birth</label>
+                <input type="text" name="dob" class="form-control" id="basicInput" placeholder="Enter patient's DOB">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="basicInput">Last Name</label>
+                <input type="text" name="l_name" class="form-control" id="basicInput" placeholder="Enter patient's last name">
+              </div>
+              <div class="form-group">
+                <label for="basicInput">Vaccine ID</label>
+                <input type="number" name="vac" class="form-control" id="basicInput" placeholder="Enter vaccine id">
+              </div>
+            </div>
+            <input type="submit" style="display: none;">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
