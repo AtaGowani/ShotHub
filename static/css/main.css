@@ -103,24 +103,26 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(93,84,240,0.5);
+  background-color: #BFE2fD;
+  /* background: rgba(93,84,240,0.5);
   background: -webkit-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
   background: -o-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
   background: -moz-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
-  background: linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+  background: linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5)); */
   pointer-events: none;
 }
 
 .wrap-login100 {
   width: 390px;
-  background: #fff;
+  background: #BFE2fD;
+  /* background: #fff; */
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
   -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1); */
 }
 
 
@@ -377,4 +379,58 @@ iframe {
     padding-left: 15px;
     padding-right: 15px;
   }
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Index.jinja page ]*/
+
+header{
+  text-align: center;
+  padding: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: black;
+}
+.ShotHubLogo {
+  align-content: center;
+}
+body{
+  background-color: #BFE2fD;
+  font-size: 150%;
+  margin: 4% 
+}
+h2{
+  color: chocolate;
+  background-color: darkviolet;
+  font-size: 150%;
+}
+ul{
+  color: darkmagenta;
+}
+section{
+  width: 30%;
+  display: inline-block;
+  float: left;
+  margin-right: 2%;
+
+}
+summary{
+  color: black;
+  font-style: normal;
+}
+details{
+  color: darkturquoise;
+  font-style: italic;
+}
+footer{
+ clear: both;
+ height: 100px;
+ background-color: darkviolet;
+}
+img{
+  width: 125px;
+
+}
+*{
+  border
 }
