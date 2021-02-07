@@ -13,7 +13,7 @@
     {% if user == "tech" %}
     <form class="login100-form validate-form" action="/tech-signin" method="POST">
       <span class="login100-form-title p-b-37">
-        Welcome to Your Tech Portal
+        <h2> Welcome to Your Tech Portal</h2>
       </span>
       {% if invalid %}
       <div class="alert alert-danger" role="alert">
@@ -37,10 +37,15 @@
     {% else %}
     <form class="login100-form validate-form" action="/signin" method="POST">
       <span class="login100-form-title p-b-37">
-        Welcome to ShotHub
+        <h2>Welcome to ShotHub</h2>
       </span>
-      <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-        <input class="input100" type="text" name="username" placeholder="username or email">
+      {% if invalid %}
+        <div class="alert alert-danger" role="alert">
+          Invalid phone or password.
+        </div>
+      {% endif %}
+      <div class="wrap-input100 validate-input m-b-20" data-validate="Enter phone number">
+        <input class="input100" type="text" name="phone" placeholder="phone number">
         <span class="focus-input100"></span>
       </div>
       <div class="wrap-input100 validate-input m-b-25" data-validate="Enter password">
